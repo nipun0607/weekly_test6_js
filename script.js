@@ -4,7 +4,7 @@ let side=document.querySelector(".aside");
 let main_right_container=document.querySelector(".main_rightside");
 let list_of_categories=document.querySelectorAll(".left_side_list");
 let newcontainer=document.querySelector(".newcontainer");
-
+let main_newcontainer=document.querySelector(".main_newcontainer");
 
 async function fetchList(){
     let list=await fetch(`${apiOfList}`);
@@ -28,10 +28,12 @@ fetchList();
 function listOfBook(list_of_categories){
     list_of_categories.forEach(l=>{
         l.addEventListener('click',details_of_books);
+       
     })
 }
 async function details_of_books(e){
 //   console.log(e.target.innerText);  
+newcontainer.innerHTML="";
 let details=await fetch(`https://books-backend.p.goit.global/books/category?category=${e.target.innerText}`);
 let bookDetails= await details.json();
 // console.log(bookDetails[0]);
@@ -41,7 +43,7 @@ let bookDetails= await details.json();
 
 bookDetails.forEach(bo=>{
     let clickdiv=document.createElement("div");
-    clickdiv.classList.add=(".clicked");
+    clickdiv.classList.add("clicked");
     let imgage_of_book=bo.book_image;
     let title_of_book=bo.title;
     let author_of_book=bo.author;
@@ -50,7 +52,7 @@ bookDetails.forEach(bo=>{
     // let inner_click=createElement(div);
     // clickdiv.classList.add("single_book_info");
     clickdiv.innerHTML=
-`<img src=${imgage_of_book}/>
+`<img src=${imgage_of_book}>
 <p class="author_name">${title_of_book}</p>
 <p class="title_name">${author_of_book}</p>
 `
@@ -59,6 +61,7 @@ newcontainer.appendChild(clickdiv);
 main_right_container.style.display="none";
 newcontainer.style.display="flex";
 // main_right_container.style.display="none";
+main_newcontainer.style.display="flex";
 })
 
 
